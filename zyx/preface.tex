@@ -6,7 +6,7 @@
 % Deactivate page anchors as they are needed later for the content
 \ifthenelse{\boolean{\mywip}}{}{
    \hypersetup{pageanchor=false}
-   \newgeometry{bindingoffset=1.19cm} % This number is weird, but it centers the title page
+   \newgeometry{bindingoffset=1.19cm, bottom=1.5cm} % Reduced bottom margin to push logos down
    \begin{titlepage}
       \begin{center}
          {\LARGE \textsc{\myUniversity}}\\[0.8em]
@@ -15,8 +15,10 @@
          \includegraphics[width=4cm]{img/LMU_siegel.pdf}
          \vfill
          \begin{spacing}{1.1}
-            \Huge \bfseries \myTitle
+            \Large \bfseries \myTitle
          \end{spacing}
+         \vspace{1em}
+         {\mySubtitle}
 
          %  \ifthenelse{\equal{\mylanguage}{en}}{ \begin{spacing}{1.1}
          %  		\Huge \bfseries \myTitleNative
@@ -31,13 +33,32 @@
       \end{center}
       \begingroup
       \renewcommand*{\arraystretch}{1.15}
-      \begin{tabularx}{0.8\textwidth}{X X}
-         \ifthenelse{\equal{\mylanguage}{de}}{Autor}{Author}:                        & \myAuthor      \\
-         \ifthenelse{\equal{\mylanguage}{de}}{Matrikelnummer}{Matriculation number}: & \myNumber      \\
-         \ifthenelse{\equal{\mylanguage}{de}}{Abgabedatum}{Submission Date}:         & \myEndDate     \\
-         \ifthenelse{\equal{\mylanguage}{de}}{Aufgabensteller}{Supervisor}:          & \myReviewFirst \\
-         \ifthenelse{\equal{\mylanguage}{de}}{Betreuer}{Second Supervisor}:          & \myAdvisor     \\
+      \noindent
+      \begin{tabularx}{\textwidth}{XXXX}
+         \centering \myAuthorIV & \centering \myAuthorII & \centering \myAuthorIII & \centering \arraybackslash \myAuthor \\
+         \centering \myNumberIV & \centering \myNumberII & \centering \myNumberIII & \centering \arraybackslash \myNumber
       \end{tabularx}
+
+      \vspace{2em}
+
+      \begin{center}
+         \begin{tabularx}{0.8\textwidth}{X X}
+            \ifthenelse{\equal{\mylanguage}{de}}{Abgabedatum}{Submission Date}: & \myEndDate     \\
+            \ifthenelse{\equal{\mylanguage}{de}}{Seminarleitung}{Supervisor}:   & \myReviewFirst \\
+            \ifthenelse{\equal{\mylanguage}{de}}{Seminar}{Seminar}:             & \mySeminar     \\
+         \end{tabularx}
+      \end{center}
+
+      \vfill
+
+      \begin{center}
+         \includegraphics[height=1.2cm]{img/BayerischesLandesamtFuerUmweltLogo.png}\hfill
+         \includegraphics[height=1.2cm]{img/DAVLogo.png}\hfill
+         \includegraphics[height=1.2cm]{img/DeepAlpineLogo.png}\hfill
+         \includegraphics[height=1.2cm]{img/FakultaetFuerGeoundUmweltwissenschaftenLogo.png}\hfill
+         \includegraphics[height=1.2cm]{img/LMULogo.png}\hfill
+         \includegraphics[height=1.2cm]{img/SchneefernerhausLogo.png}
+      \end{center}
       \endgroup
       \cleardoublepage
    \end{titlepage}
@@ -55,10 +76,18 @@
    {\setlength{\parindent}{0cm}%
       \ifthenelse{\equal{\mylanguage}{de}}{%
          \begin{otherlanguage}{ngerman}
-            Hiermit erkläre ich, dass ich die {\myThesisTypeShort} selbständig verfasst, noch nicht anderweitig
+            Hiermit erkläre ich, dass ich die Seminararbeit selbständig verfasst, noch nicht anderweitig
             für Prüfungszwecke vorgelegt, keine anderen als die angegebenen Quellen oder Hilfsmittel
             benutzt sowie wörtliche und sinngemäße Zitate als solche gekennzeichnet habe.\\[7em]
-            \myCity, den \myHandIn \hfill \myAuthor
+            \begin{tabularx}{\linewidth}{@{}Xc@{}}
+               \myCity, den \myHandIn &
+               \begin{tabular}[t]{@{}c@{}}
+                  \myAuthorIV  \\
+                  \myAuthorII  \\
+                  \myAuthorIII \\
+                  \myAuthor
+               \end{tabular}
+            \end{tabularx}
          \end{otherlanguage}
       }{%
          I confirm that this \MakeLowercase{\myThesisTypeShort} is my own work and I have documented all sources and material used.\\[7em]
@@ -84,13 +113,13 @@
    \ohead{\myThesisType \\[0.2em] \myTitle \vspace{-1.5em}}
 }{}
 
-\begingroup
-% Temporarily overwriting clearpage command
-\let\cleardoublepage\relax
-\let\clearpage\relax
-\currentpdfbookmark{\myAbstractTitle}{abstract}
-\subfile{../txt/0-abstract.tex}
-\endgroup
+% \begingroup
+% % Temporarily overwriting clearpage command
+% \let\cleardoublepage\relax
+% \let\clearpage\relax
+% \currentpdfbookmark{\myAbstractTitle}{abstract}
+% \subfile{../txt/0-abstract.tex}
+% \endgroup
 
 \microtypesetup{protrusion=false}
 \cleardoublepage
