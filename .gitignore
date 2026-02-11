@@ -305,3 +305,6 @@ Backup of *.doc*
 
 # Visio autosave temporary files
 *.~vsd*
+
+# The aux folder
+*aux/*
