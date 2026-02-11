@@ -307,4 +307,4 @@ Backup of *.doc*
 *.~vsd*
 
 # The aux folder
-*aux/*
+*/aux/*
