@@ -1,0 +1,95 @@
+\documentclass[../main.tex]{subfiles}
+\usepackage{float}
+
+\begin{document}
+
+\chapter{Introduction}
+\label{chap:introduction}
+\begin{center}
+On résiste à l’invasion des armées;\\
+on ne résiste pas à l’invasion des idées:\\
+\textit{One resists the invasion of armies; \\ one does not resist the invasion of ideas.}\\
+Victor Hugo (1802–1885), in Histoire d’un Crime \\
+(The History of a Crime), 1877 \\
+
+% \vspace{3mm}
+
+% \textit{...government of the people, by the people, for the people...}\\
+% Abraham Lincoln (1809-1865), The Gettysburg Address 1863
+\end{center}
+
+Nearly half of the global population resides within some form of democracy, yet only 7.8\% experience a full democracy \autocite{EconomistGroupEIUs}. 
+The privilege to freely critique, enhance, and engage in political processes is a hallmark of democratic systems. 
+Democracy fosters an environment where innovation and diffusion of technology can thrive \autocite{cervellatiTradeLiberalizationDemocratization2018, okadaPoliticalRegimesMatter2024, cominLobbiesTechnologyDiffusion2009}. 
+By facilitating open discourse, collaboration, and the free exchange of ideas, democratic societies create fertile ground for technological advancements to spread and benefit wide populations. 
+This interplay between governance and innovation highlights the importance of political structures in shaping the trajectory of technological diffusion. \par
+However, how political rhetoric translates into technology adoption patterns remains unclear. This thesis examines whether political party positions in election manifestos predict subsequent technology diffusion, addressing this gap through panel data analysis and validated text classification methods.\par
+
+This is especially relevant now, as the world faces unprecedented challenges and changes.
+The United States for example, is currently facing a decreasing democracy according to Polity 5, measured by the Democracy Index of Center for Systemic Peace \autocite{PolityProject}.
+In addition to that, the government tries to take an active role in the diffusion of technology \autocite{PresidentDonaldTrump}.
+While it is impossible to evaluate the effect of political rhetoric on technology adoption patterns right now, it is possible to do this for the past.
+And this is the focus of this thesis.
+
+\section{Research Questions}
+\label{sec:research-question}
+The diffusion of technology has been extensively studied; as early as 1983, there existed over a thousand papers researching this topic \autocite{rogersDiffusionInnovations1983}. 
+By 1996, hundreds of theoretical models had been proposed, reflecting the interdisciplinary nature of this field \autocite{jaakkolaComparisonAnalysisDiffusion1996a}. 
+These studies address diverse questions, ranging from focused case studies \autocite{larrainIntelCaseStudy2000} to abstract concepts \autocite{uzuegbunamCultureConnectednessInternational2021} and modern environmental challenges \autocite{wangGlobalValueChains2021}. \par
+
+While the influence of politics on technology diffusion has been explored in some studies \autocite{parmentolaBoostingSpreadNew2020,mcdonaldTechnologyPoliticalLandscape2010,susmitadasguptaPolicyReformEconomic2005}, these works often focus on specific technologies and provide limited insights on a broader scale. 
+Existing research highlights the importance of political cycles and government-opposition dynamics \autocite{campbellPalgraveStudiesDemocracy}, but the mechanisms through which politics influence technology diffusion on a larger scale remain underexplored. \par
+
+Democracy is often seen as a facilitator of innovation and diffusion \autocite{campbellPalgraveStudiesDemocracy}, though its impact can vary across different fields \autocite{okadaPoliticalRegimesMatter2024}. 
+In some cases, democratic processes may even hinder the adoption of certain technologies \autocite{cominLobbiesTechnologyDiffusion2009}.
+\newline
+
+Existing research lacks a direct empirical link between political rhetoric and technology diffusion outcomes. 
+While citizens can influence policy through lobbying \autocite{cominLobbiesTechnologyDiffusion2009} or direct democracy, as in Switzerland \autocite{DirectDemocracyb}, most democratic participation relies on trusting pre-election manifestos and campaign promises. 
+This creates a critical gap: do political party positions expressed in manifestos actually predict technology adoption patterns? 
+This thesis addresses this gap by examining whether manifesto rhetoric translates into measurable diffusion outcomes. \par
+
+To guide this investigation, the following research questions are formulated and in the subsequent chapters, these questions will be answered:
+\begin{enumerate}
+     \item How can political party positions be reliably classified?
+     \item What are the key determinants of national technology diffusion?
+     \item To what extent do political party positions impact the diffusion of technology?
+\end{enumerate}
+
+
+\section{Definitions}
+\label{sec:definitions}
+This thesis uses a broad definition of \textbf{diffusion}:
+\begin{center}
+     \textit{Diffusion, in a broader sense, can be defined as the process by which something spreads across a population, region, or system over time. This encompasses not only the physical or spatial spread but also the adoption and integration of ideas, technologies, or behaviors within a social or economic context.}
+\end{center}
+
+This is a more specific definition of diffusion than the one used in the Merriam-Webster's Collegiate Dictionary, "the state of being spread out or transmitted especially by contact" \autocite{DefinitionDIFFUSION2025}. 
+While the dictionary approach aligns with the early epidemic approach \autocite{dasDiffusionInnovationsTheoretical2022}, it does not include the more recent perspectives on that topic, such as the neo-classical and evolutionary approaches, more on that in section \ref{sec:diffusionOfInnovation}.
+Diffusion can be described by an extensive, spread across countries, and intensive, within-country, margin \autocite{lebesmuehlbacherUnderstandingTechnologyDiffusion2016}, where this thesis is focused on the intensive margin.
+Though further information can be found in chapter \ref{cap:methodology}.
+\newline
+
+Another concept frequently associated with diffusion is \textbf{convergence}, defined as "the fact that two or more things, ideas, etc. become similar or come together" \autocite{cambridge-dictionaryConvergence2025}. 
+While conceptually distinct from diffusion \autocite{barroConvergence1992,jonesConvergence2007,hassanSpaceEconomyConvergence2000}, convergence sometimes describes diffusion patterns \autocite{choiStudyDiffusionPattern2015}. 
+In economics, convergence refers to economic alignment between countries \autocite{mankiwContributionEmpiricsEconomic,dowrickOECDComparativeEconomic1989,delongProductivityGrowthConvergence1988,hassanSpaceEconomyConvergence2000}, and methods used to evaluate economic convergence can be used to evaluate technological convergence \autocite{cominFiveFactsYou2006}.
+Further linking the two concepts, \textcite{kellerInternationalTechnologyDiffusion2004} states that "Strong diffusion is a force towards convergence across all domains, not only technology, because it equalizes differences in technology across countries". 
+For the purposes of this thesis, these terms are used interchangeably when referring to technology adoption patterns across countries. 
+\newline
+
+For the definition of \textbf{technology} one of the main data sources \autocite{cominCHATDataset2009} uses the Merriam-Webster's Collegiate Dictionary which states that technology is "a manner of accomplishing a task especially using technical processes, methods, or knowledge" \autocite{DefinitionTECHNOLOGY2025}. 
+This definition is consistent with other sources in the field \autocite{okadaPoliticalRegimesMatter2024}. 
+\textcite{kellerInternationalTechnologyDiffusion2004} synthesizes prior research and identifies three principal characteristics of technology:
+
+\begin{enumerate}
+     \item Technology is non-rival in the sense that the marginal costs for an additional firm or
+     individual to use the technology are negligible.
+     \item The return to investments towards new technology are partly private and partly
+     public; and
+     \item Technological change is the outcome of activities by private agents who intentionally
+     devote resources towards the invention of new products and processes.
+\end{enumerate}
+
+The definition of \textcite{cominCHATDataset2009} will be used in this thesis, to stay consistent with the main data source.
+
+\end{document}

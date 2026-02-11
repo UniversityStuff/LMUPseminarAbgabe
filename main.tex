@@ -1,0 +1,39 @@
+% This is the main entry point for the thesis template. It includes all other
+% smaller subfiles for each chapter and composes them to the complete document
+
+% Each file starts with this command. It is used to define the corresponding
+% base path of the template. This avoids the usage of absolute paths.
+
+% The thesis template is defined in its own document class.
+% Please see the zyx-directory for more details
+\documentclass[oneside,en]{./zyx/mythesis}
+%% If you prefer one side per page use this instead of the previous line
+% \documentclass[oneside]{./zyx/mythesis}
+%% If all the front pages are annoying you, try the following
+% \documentclass[twoside,wip]{./zyx/mythesis}
+
+% Add the library file for the literature references
+\addbibresource{./literature.bib}
+
+% Load acronyms file
+\input{./acronyms.tex}
+
+\begin{document}
+% Cover, abstract, table of contents, etc.
+\subfile{./zyx/preface.tex}
+% \subfile{./txt/0-abstract.tex}
+
+% Put your chapters here
+\subfile{./txt/1-introduction.tex}
+
+% Bibliography, list of tables, list of figures, etc.
+\subfile{./zyx/epilogue.tex}
+
+% Generate literature references
+% \printbibliography[heading=bibintoc]
+
+% Add and appendix to the document
+\cleardoublepage
+\subfile{./txt/z_appendix.tex}
+
+\end{document}

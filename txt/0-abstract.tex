@@ -1,0 +1,32 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter*{\myAbstractTitle}
+
+This thesis investigates whether political party positions in election manifestos predict technology diffusion across democracies, addressing three research questions: how to reliably classify political positions, what determines technology diffusion, and whether political positions impact diffusion. \par
+
+The primary analysis employs panel data regression combining the Cross-Country Historical Adoption of Technology (CHAT) dataset with Comparative Manifestos Project (CMP) coding, concluding in over 100 technologies and 34 democracies in the timeframe between 1950 and 2000. 
+CMP variables are aggregated into "literature aspects" linking political rhetoric to diffusion determinants. 
+The panel model incorporates country and technology-year fixed effects. 
+A robustness check employs zero-shot Large Language Model (LLM) classification for migration policy. \par
+
+The central finding is that manifesto positions do not robustly predict technology diffusion. 
+After False Discovery Rate correction, no aggregated literature aspects show significant relationships across sectors or time delays (0-4 years). 
+This null result holds across both CMP-based and independently validated LLM-generated measures. 
+Panel regressions exhibit high adjusted R$^2$ (above 80\%) but low within-R$^2$ values (averaging 2\%), revealing that stable country characteristics and global technology trends explain most variation, while time-varying political rhetoric explains virtually none of the within-country variation. \par
+
+This pattern suggests politics influences diffusion through stable institutional frameworks (e.g., property rights, education) that change slowly over decades and are captured by fixed effects, rather than manifesto variations. 
+The null finding reflects temporal mismatch between diffusion and electoral cycles, implementation gaps, and structural constraints limiting rapid changes. \par
+
+Methodologically, zero-shot LLM classification proves viable for political text coding. 
+Gemini 2.5 Pro achieved 47.2\% accuracy replicating CMP codes (competitive with fine-tuned models) and 0.88 correlation with expert surveys for migration (outperforming traditional CMP and other approaches). 
+Both measurement approaches converged on the same conclusion. \par
+
+Electoral manifestos capture political rhetoric but fail to predict short-term technology diffusion. 
+Politics shapes adoption through stable institutional frameworks and continuous engagement, not electoral rhetoric.
+
+\vspace{1cm}
+\textbf{Keywords:} Technology Diffusion, Political Manifestos, Large Language Models, Zero-Shot Classification, Panel Data Analysis, Comparative Manifestos Project, CHAT Dataset
+
+\end{document}
