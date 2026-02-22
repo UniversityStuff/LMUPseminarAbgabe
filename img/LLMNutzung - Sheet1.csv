@@ -1,0 +1,9 @@
+,,,,,
+,LLM Anwendung,Arbeitsphase,Nutzung,Bemerkung zur Nurzung und Ergebnis,Reflexion
+,Perplexity (mit Quelle: Akademisch),Recherche,Recherche von angeznenden Papern und erklären von simplen Grundbegriffen,,"Funktioniert gut, Ergebnisse häufig von wenigen, selektiven Quellen"
+,Antigravity (Claude Sonnet und Gemini 3 Pro,Programmierung,Für fast alle Code Änderungen,"Für fast alles, auch z.B. um eine Übersicht über Datenstrukturen zu bekommen","Funktioniert sehr gut.
+ Lässt auch den eigenen Code laufen und überprüft den Output.
+ Expertise benötigt um in dem Code dann die Relevanten stellen zu finden (z.B. die Modelwahl etc)
+ Alternativ kann mann auch die LLM fragen.
+ Sehr gut auch im Verbessern von bestehendem Code"
+,Gemini 2.5 und 3 Pro,Antrag stellen,"Überarbeiten von Text, incl verbesserten Formulierungen und vermeidung von Rechtschreibfehlern",,"Von Stichpunkten zu Volltext lohnt sich nicht so, aber von Volltext zu verbessertem Volltext funktioniert wesentlich besser. Vermutlich weil mehr Kontext gegeben ist und LLM nicht so gut ist, den Kontext zw den Stichpunkten zu erkennen."

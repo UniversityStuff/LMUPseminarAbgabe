@@ -2,7 +2,52 @@
 
 \begin{document}
 
-\chapter*{Literatur}
+\chapter{Diskussion}
+\vspace{-0.5cm}
+\noindent\textit{\small Verfasst von Julian}
+\vspace{0.5cm}
 
+\section{Beantwortung der Forschungsfrage und Haupterebnisse}
+Das Ziel des Teilprojekts „Naturgefahren“ war es, zu evaluieren, inwiefern gravitative Massenbewegungen wie Erdrutsche durch den Einsatz von Fernerkundungsdaten und maschinellem Lernen (insbesondere Random Forest Klassifikatoren) identifiziert und im Kontext des Klimawandels prognostiziert werden können.
+Die Ergebnisse zeigen, dass der gewählte methodische Ansatz grundsätzlich geeignet ist, um komplexe, nichtlineare Zusammenhänge zwischen klimatischen, geomorphologischen und hydrologischen Triggern abzubilden.
+Ein zentrales Ergebnis der räumlichen Modellierung (Modell B) ist die eindeutige Zunahme der durch Rutschungen gefährdeten Flächen.
+Der Vergleich der Shared Socioeconomic Pathways (SSP1-2.6, SSP3-7.0 und SSP5-8.5) verdeutlicht, dass die Gefährdung im Zeitraum 2081–2100 im Vergleich zur Referenzperiode 2015–2024 signifikant ansteigen wird.
+Dies bestätigt die Ausgangshypothese, dass der Klimawandel die Disposition für Massenbewegungen in der Untersuchungsregion messbar erhöht.
+
+\section{Interpretaion und methodische Auffälligkeiten}
+Die Auswertung der Modellmetriken liefert wichtige Erkenntnisse über die Vorhersagbarkeit alpiner Naturgefahren.
+Modell B erreicht bei der Klassifikation von Landslides eine Precision von 68 \%, einen Recall von 66 \% und einen F1-Score von 67 \%.
+Diese Werte resultieren maßgeblich aus einer erheblichen Anzahl an klassifizierten False Positives.
+Geomorphologisch lässt sich dies dadurch erklären, dass das Modell Zonen mit einer hohen Suszeptibilität (Topographie, Hangneigung, Niederschlag) identifiziert, in denen die physischen Voraussetzungen für einen Erdrutsch zwar vorliegen, ein tatsächliches Ereignis jedoch (noch) nicht dokumentiert wurde.
+Das Modell kartiert folglich die prinzipielle Gefährdung (Suszeptibilität) weitaus flächendeckender, als historische Ereignisinventare es abbilden. \par
+
+Ein weiterer, methodisch hochrelevanter Befund zeigte sich in der Entwicklung von Modell A:
+Die Integration von optischen Sentinel-2 Satellitendaten führte zu einer Senkung der Modellgenauigkeit, weshalb das finale Modell ohne diese Datenstruktur präsentiert wurde.
+Dies ist vermutlich auf die großen Herausforderungen optischer Fernerkundung im hochalpinen Raum zurückzuführen, wo persistente Wolkenbedeckung, harter Schattenwurf in steilen Tälern und die zeitliche Diskontinuität wolkenfreier Bilder die Extraktion verlässlicher Prädiktoren erschweren.
+
+\section{Einordnung der Ergebnisse in den aktuellen Stand der  Forschung}
+Die modellierte Zunahme der Naturgefahren deckt sich mit aktuellen Beobachtungen und Metastudien zur alpinen Klimafolgenforschung.
+Jacquemart et al. (2024) weisen bereits für ein Drittel der untersuchten Fallstudien im Alpenraum einen messbaren Einfluss klimatischer Trends auf Massenbewegungen nach.
+Die in unserem Modell identifizierte Bedeutung von Niederschlag, Bodenfeuchte und topographischen Variablen  korrespondiert mit den Ergebnissen von Jemec Auflič et al. (2023), die eine deutliche Zunahme an Hangrutschungen seit den 1980er Jahren in engem Zusammenhang mit veränderten Niederschlagsregimen und Bodenfeuchte belegen.
+Zudem spiegelt die generelle Relevanz klimatischer Parameter in unseren Modellen den im IPCC-Sonderbericht (2019) dargelegten Trend wider, dass Extremwetterereignisse die geomorphologische Dynamik im Hochgebirge beschleunigen.
+
+\section{Limitationen der Studie}
+Trotz der robusten Erkennungsrate unterliegt die vorliegende Methodik gewissen Limitationen. \\
+
+Erstens greifen die Modelle A und B aufgrund der eingeschränkten Datenlage bei hochaufgelösten Klimaprojektionen auf teilweise unterschiedliche Features zurück, was die direkte Vergleichbarkeit der Modelleinspeisung limitiert.
+
+Zweitens basiert die Trainingsgrundlage auf einem historischen Datensatz mit verifizierten Landslide-Punkten , wobei die „Nicht-Landslide-Punkte“ lediglich zufällig in einem 2,5 km Radius generiert wurden.
+Diese synthetischen True-Negatives haben möglicherweise Überschneidungspunkte mit True-Positives. \\
+
+Drittens sind die historischen True-Positives sehr limitiert in der Anzahl.
+Ansätze welche zu Beginn versuchten das Steigungsprofil als Rasterdaten einzusetzen scheiterten dementsprechend.
+Mehr Daten sind in solchen Ansätzen meist von Vorteil.
+Eine Möglichkeit dies in weiteren Forschungsansätzen zu erreichen wäre beispielsweise eine Kopplung mit anderen Daten aus anderern Regionen gewesen.
+
+\section{Implikationen und Ausblick}
+Trotz dieser methodischen Einschränkungen liefert das Modell belastbare und regional hochauflösende Gefahrenkarten für Gemeinden. 
+Das Teilprojekt zeigt, dass KI-gestützte Analysen eine essenzielle Planungsgrundlage bieten, um die Sicherheit der Bevölkerung durch gezielte Management- und Schutzmaßnahmen in gefährdeten Gebieten aufrechtzuerhalten. 
+Zukünftige Forschungen sollten den Fokus auf die Integration von SAR-Daten (Synthetic Aperture Radar) legen, um die Problematik der optischen Sentinel-2-Daten (Wolken, Schatten) zu umgehen und bodenmechanische Deformationen flächenhaft in die Modelle zu integrieren.
+Zudem wäre eine noch stärkere zeitliche Kopplung von kurzfristigen Extremniederschlägen in die Prognosemodelle erstrebenswert, um nicht nur die grundlegende Anfälligkeit, sondern auch akute Auslösemomente besser abzubilden.
 
 \end{document}
