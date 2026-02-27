@@ -7,47 +7,56 @@
 \noindent\textit{\small Verfasst von Julian}
 \vspace{0.5cm}
 
-\section{Beantwortung der Forschungsfrage und Haupterebnisse}
-Das Ziel des Teilprojekts „Naturgefahren“ war es, zu evaluieren, inwiefern gravitative Massenbewegungen wie Erdrutsche durch den Einsatz von Fernerkundungsdaten und maschinellem Lernen (insbesondere Random Forest Klassifikatoren) identifiziert und im Kontext des Klimawandels prognostiziert werden können.
-Die Ergebnisse zeigen, dass der gewählte methodische Ansatz grundsätzlich geeignet ist, um komplexe, nichtlineare Zusammenhänge zwischen klimatischen, geomorphologischen und hydrologischen Triggern abzubilden.
-Ein zentrales Ergebnis der räumlichen Modellierung (Modell B) ist die eindeutige Zunahme der durch Rutschungen gefährdeten Flächen.
-Der Vergleich der Shared Socioeconomic Pathways (SSP1-2.6, SSP3-7.0 und SSP5-8.5) verdeutlicht, dass die Gefährdung im Zeitraum 2081–2100 im Vergleich zur Referenzperiode 2015–2024 signifikant ansteigen wird.
-Dies bestätigt die Ausgangshypothese, dass der Klimawandel die Disposition für Massenbewegungen in der Untersuchungsregion messbar erhöht.
+Die vorliegende Arbeit verfolgte das Ziel, die Erdrutschanfälligkeit im norditalienischen Alpenraum mithilfe maschineller Lernverfahren zu modellieren und unter verschiedenen Klimaszenarien zu projizieren.
+Hierzu wurden zwei Random-Forest-Modelle entwickelt, die im Folgenden hinsichtlich ihrer Stärken, Limitationen und methodischen Implikationen kritisch diskutiert werden.
 
-\section{Interpretaion und methodische Auffälligkeiten}
-Die Auswertung der Modellmetriken liefert wichtige Erkenntnisse über die Vorhersagbarkeit alpiner Naturgefahren.
-Modell B erreicht bei der Klassifikation von Landslides eine Precision von 68 \%, einen Recall von 66 \% und einen F1-Score von 67 \%.
-Diese Werte resultieren maßgeblich aus einer erheblichen Anzahl an klassifizierten False Positives.
-Geomorphologisch lässt sich dies dadurch erklären, dass das Modell Zonen mit einer hohen Suszeptibilität (Topographie, Hangneigung, Niederschlag) identifiziert, in denen die physischen Voraussetzungen für einen Erdrutsch zwar vorliegen, ein tatsächliches Ereignis jedoch (noch) nicht dokumentiert wurde.
-Das Modell kartiert folglich die prinzipielle Gefährdung (Suszeptibilität) weitaus flächendeckender, als historische Ereignisinventare es abbilden. \par
+\section{Bewertung der Modellperformanz}
+Beide Modelle erreichen eine ausreichende Modellperformanz, um als Grundlage für operative Entscheidungen im Naturgefahrenmanagement dienen zu können. \\
 
-Ein weiterer, methodisch hochrelevanter Befund zeigte sich in der Entwicklung von Modell A:
-Die Integration von optischen Sentinel-2 Satellitendaten führte zu einer Senkung der Modellgenauigkeit, weshalb das finale Modell ohne diese Datenstruktur präsentiert wurde.
-Dies ist vermutlich auf die großen Herausforderungen optischer Fernerkundung im hochalpinen Raum zurückzuführen, wo persistente Wolkenbedeckung, harter Schattenwurf in steilen Tälern und die zeitliche Diskontinuität wolkenfreier Bilder die Extraktion verlässlicher Prädiktoren erschweren.
+Dennoch sind beide mit starken Limitationen behaftet, die im Folgenden diskutiert werden.
 
-\section{Einordnung der Ergebnisse in den aktuellen Stand der  Forschung}
-Die modellierte Zunahme der Naturgefahren deckt sich mit aktuellen Beobachtungen und Metastudien zur alpinen Klimafolgenforschung.
-Jacquemart et al. (2024) weisen bereits für ein Drittel der untersuchten Fallstudien im Alpenraum einen messbaren Einfluss klimatischer Trends auf Massenbewegungen nach.
-Die in unserem Modell identifizierte Bedeutung von Niederschlag, Bodenfeuchte und topographischen Variablen  korrespondiert mit den Ergebnissen von Jemec Auflič et al. (2023), die eine deutliche Zunahme an Hangrutschungen seit den 1980er Jahren in engem Zusammenhang mit veränderten Niederschlagsregimen und Bodenfeuchte belegen.
-Zudem spiegelt die generelle Relevanz klimatischer Parameter in unseren Modellen den im IPCC-Sonderbericht (2019) dargelegten Trend wider, dass Extremwetterereignisse die geomorphologische Dynamik im Hochgebirge beschleunigen.
+\subsection{Modell A}
+Modell A, entwickelt um die räumliche Verteilung von Erdrutschen in verschiedenen Klimaszenarien abzubilden, erreichte für die Zielklasse Erdrutschereignisse einen Recall von 76\% und einen Precision von 55\%.
+Auch wenn dies nicht optimal ist, so ist es dennoch angesichts der limitieren Daten und der Komplexität ein akzeptables Ergebnis.
+Gerade bei der Vorhersage über einen großen Zeitraum ist so oder so anzunehmen, dass eine exakte Vorhersage nicht möglich ist.
+Daher reicht eine Tendenz aus, vor allem um die verschiedenen Klimaszenarien miteinander vergleichen zu können, was mit Erfolg gelang.
 
-\section{Limitationen der Studie}
-Trotz der robusten Erkennungsrate unterliegt die vorliegende Methodik gewissen Limitationen. \\
+\subsection{Modell B}
+Modell B, entwickelt um die tagesaktuelle Erdrutschanfälligkeit abzubilden, erreichte eine akzeptable Modellperformanz mit einem Recall von 0,59\% und einem Precision von 0,62\% für die Zielklasse Erdrutschereignisse.
+Das Modell ist wesentlich komplexer als Modell A, da es wesentlich mehr Features verwendet, um die Erdrutschanfälligkeit abzubilden.
+Auch wurde and diesem Modell länger und intensiver gearbeitet, als auch getestet.
+Verschiedene Features wurden ausprobiert, um die Modellperformanz zu verbessern als auch die Limitationen des Ansatzes zu verstehen. \par
 
-Erstens greifen die Modelle A und B aufgrund der eingeschränkten Datenlage bei hochaufgelösten Klimaprojektionen auf teilweise unterschiedliche Features zurück, was die direkte Vergleichbarkeit der Modelleinspeisung limitiert.
+Einer der größten Vorteile zwei Modelle zu verwenden ist, dass der Lernerfolg und damit auch küftige Folgeprojekte durch das Team besser eingeschätzt und bearbeitet werden können.
+Modell A ist sehr limitiert, da es an die Daten der Klimaprognose gebunden ist.
+Modell B ist da flexibler, da es theoretisch auf beliebige Daten zurückgreifen kann.
 
-Zweitens basiert die Trainingsgrundlage auf einem historischen Datensatz mit verifizierten Landslide-Punkten , wobei die „Nicht-Landslide-Punkte“ lediglich zufällig in einem 2,5 km Radius generiert wurden.
-Diese synthetischen True-Negatives haben möglicherweise Überschneidungspunkte mit True-Positives. \\
 
-Drittens sind die historischen True-Positives sehr limitiert in der Anzahl.
-Ansätze welche zu Beginn versuchten das Steigungsprofil als Rasterdaten einzusetzen scheiterten dementsprechend.
-Mehr Daten sind in solchen Ansätzen meist von Vorteil.
-Eine Möglichkeit dies in weiteren Forschungsansätzen zu erreichen wäre beispielsweise eine Kopplung mit anderen Daten aus anderern Regionen gewesen.
+\section{Einordnung der Ergebnisse}
+Modell A konnte die räumliche Verteilung von Erdrutschen in verschiedenen Klimaszenarien gut abbilden und hat somit die Forschungsfrage beantwortet.
+Modell B konnte die tagesaktuelle Erdrutschanfälligkeit gut abbilden und hat somit wichtige Erkenntnisse für die Praxis geliefert. \\
+Dementsprechend sind die Ergebnisse der beiden Modelle unterschiedlich einzuordnen, aber dennoch als Erfolg zu werten.
+Dennoch besteht großer Verbesserungsbedarf, wenn diese Modelle aktiv in der Praxis eingesetzt werden sollen.
+Die Limitationen beider Modelle werden im Folgenden diskutiert. \\
 
-\section{Implikationen und Ausblick}
-Trotz dieser methodischen Einschränkungen liefert das Modell belastbare und regional hochauflösende Gefahrenkarten für Gemeinden. 
-Das Teilprojekt zeigt, dass KI-gestützte Analysen eine essenzielle Planungsgrundlage bieten, um die Sicherheit der Bevölkerung durch gezielte Management- und Schutzmaßnahmen in gefährdeten Gebieten aufrechtzuerhalten. 
-Zukünftige Forschungen sollten den Fokus auf die Integration von SAR-Daten (Synthetic Aperture Radar) legen, um die Problematik der optischen Sentinel-2-Daten (Wolken, Schatten) zu umgehen und bodenmechanische Deformationen flächenhaft in die Modelle zu integrieren.
-Zudem wäre eine noch stärkere zeitliche Kopplung von kurzfristigen Extremniederschlägen in die Prognosemodelle erstrebenswert, um nicht nur die grundlegende Anfälligkeit, sondern auch akute Auslösemomente besser abzubilden.
+Einer der überraschendsten Ergebnisse war die Umverteilung der Erdrutschanfälligkeit in den Klimaszenarien.
+Die Veränderung der Erdrutschanfälligkeit verschiebt sich und erhöt sich, jedoch nicht in den Regionen, in dies von dem Team erwartet wurde.
+Dies stellte ein herausforderndes Ergebnis dar, welches in künftigen Arbeiten genauer untersucht werden sollte.
+
+
+\section{Limitationen und Ausblick}
+
+Zusammenfassend lassen sich folgende zentrale Limitationen identifizieren:
+\begin{enumerate}
+    \item \textbf{Anzahl der Erdrutschereignisse:} Die Anzahl der Erdrutschereignisse ist für beide Modelle sehr gering, was die Modellperformanz stark einschränkt. Dies ist einer der größten Limitationen der Arbeit und sollte in künftigen Arbeiten genauer untersucht werden. 
+    \item \textbf{Fehlende geologische Prädiktoren:} Beide Modelle verzichten auf geotechnische Parameter wie Lithologie, Bodentiefe oder Verwitterungsgrad, die als konditionierende Faktoren für Hanginstabilitäten bekannt sind \autocite{reichenbachReviewStatisticallybasedLandslide2018}.
+    \item \textbf{Monolithischer Algorithmus:} Die ausschließliche Verwendung von Random Forest stellt eine Limitation dar, da andere Algorithmen möglicherweise bessere Ergebnisse erzielt hätten.
+    \item \textbf{Unvollständige Inventardaten:} Es ist gut möglich, dass die Qualität des IFFI-Erdrutschinventars variiert. Insbesondere kleinere Ereignisse und solche in schwer zugänglichen Gebieten könnten systematisch unterrepräsentiert sein. Dies könnte zu einer Verzerrung der Modellergebnisse führen.
+    \item \textbf{Keine sozioökonomische Integration:} Die generierten Karten bilden physische Anfälligkeiten ab, berücksichtigen jedoch keine Expositions- und Vulnerabilitätskomponenten (z.\,B.\,Bevölkerungsdichte, Infrastruktur), die für eine vollständige Risikobeurteilung essenziell wären. Zwar war dies Teil der ursprünglichen Planung und wurde auch Zeitweise eingefügt, jedoch hat es nicht in der finalen Version der Arbeit geschafft aufgrund der hinzugefügten Komplexität.
+\end{enumerate}
+
+Trotz dieser Einschränkungen demonstriert die Arbeit, dass ein komplementärer Modellansatz, bestehend aus langfristiger Suszeptibilitätskartierung und tagesaktueller Risikoberechnung, einen Mehrwert für das regionale Naturgefahrenmanagement bieten kann. 
+Die identifizierten räumlichen Hotspots auf Gemeindeebene und die prognostizierten Flächenveränderungen unter verschiedenen SSP-Szenarien liefern eine quantitative Grundlage für die Priorisierung von Schutzmaßnahmen und die langfristige Raumplanung im alpinen Raum.
+Dennoch ist weitere Forschung und Entwicklung notwendig, um diese Modelle in der Praxis erfolgreich einzusetzen, gerade im Bereich Datenqualität.
 
 \end{document}

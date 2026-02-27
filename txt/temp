@@ -1,0 +1,11 @@
+Trotz der robusten Erkennungsrate unterliegt die vorliegende Methodik gewissen Limitationen. \\
+
+Erstens greifen die Modelle A und B aufgrund der eingeschränkten Datenlage bei hochaufgelösten Klimaprojektionen auf teilweise unterschiedliche Features zurück, was die direkte Vergleichbarkeit der Modelleinspeisung limitiert.
+
+Zweitens basiert die Trainingsgrundlage auf einem historischen Datensatz mit verifizierten Landslide-Punkten , wobei die „Nicht-Landslide-Punkte“ lediglich zufällig in einem 2,5 km Radius generiert wurden.
+Diese synthetischen True-Negatives haben möglicherweise Überschneidungspunkte mit True-Positives. \\
+
+Drittens sind die historischen True-Positives sehr limitiert in der Anzahl.
+Ansätze welche zu Beginn versuchten das Steigungsprofil als Rasterdaten einzusetzen scheiterten dementsprechend.
+Mehr Daten sind in solchen Ansätzen meist von Vorteil.
+Eine Möglichkeit dies in weiteren Forschungsansätzen zu erreichen wäre beispielsweise eine Kopplung mit anderen Daten aus anderern Regionen gewesen.
