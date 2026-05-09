@@ -65,7 +65,7 @@ Die Niederschlagssaisonalität (BIO15) wurde als Variationskoeffizient definiert
 \subsubsection{Konfiguration der Machine-Learning-Modellierung}
 Für die Vorhersage der Erdrutschanfälligkeit wurde der Random Forest (RF) Algorithmus in der Python-Umgebung scikit-learn implementiert \autocite{pedregosaScikitlearnMachineLearning2011}.
 Der RF-Algorithmus ist ein Ensemble-Verfahren, das auf Bootstrap Aggregating beruht und eine Vielzahl unabhängiger Entscheidungsbäume aggregiert.
-Jeder Knoten wird durch eine zufällige Auswahl an Prädiktoren aufgeteilt, was die Korrelation minimiert und die Generalisierungsfähigkeit erhöht \autocite{breimanRandomForests2001a}.
+Jeder Knoten wird durch eine zufällige Auswahl an Prädiktoren aufgeteilt, was die Korrelation minimiert und die Generalisierungsfähigkeit erhöht \autocite{breimanRandomForests2001}.
 Der Gini-Impurity-Index, welcher die Wahrscheinlichkeit der Fehlklassifikation misst, fungierte als Kriterium für die Aufteilung \autocites{douAssessmentAdvancedRandom2019, pedregosaScikitlearnMachineLearning2011}.
 Um eine Bewertung auf ungesehenen Daten zu ermöglichen, wurde der Datensatz mittels \texttt{train\_test\_split} in einen Trainingsdatensatz (80\,\%) und einen Testdatensatz (20\,\%) geteilt. Aufgrund der vorherrschenden Class Imbalance wurde der Algorithmus durch den Parameter \texttt{class\_weight='balanced'} adjustiert. Dadurch werden unterrepräsentierte Erdrutschpunkte im Entscheidungsprozess invers proportional zu ihrer Klassenhäufigkeit gewichtet, wodurch ein Bias zugunsten der Mehrheitsklasse verhindert wird \autocite{pedregosaScikitlearnMachineLearning2011}.
 
@@ -83,41 +83,41 @@ Der F1-Score als harmonisches Mittel aus Precision und Recall stellt sicher, das
 
 \subsubsection{Zukunftsprojektion und Change Detection}
 Um die Auswirkungen des Klimawandels räumlich zu quantifizieren, wurde das auf historischen Daten trainierte Modell auf die Rasterdaten der CMIP6-SSP-Szenarien für den Zeitraum 2081 bis 2100 angewendet \autocite{oneillScenarioModelIntercomparison2016}.
-Das Modell berechnete für jede Rasterzelle eine Erdrutschwahrscheinlichkeit zwischen 0 und 1. Zur Durchführung einer Change Detection wurde eine Klassifikationsschwelle etabliert: Jede Rasterzelle mit einer Wahrscheinlichkeit von über 50\,\% ($>$ 0.5) wurde als hochanfällige Zone klassifiziert. 
+Das Modell berechnete für jede Rasterzelle eine Erdrutschwahrscheinlichkeit zwischen 0 und 1. Zur Durchführung einer Change Detection wurde eine Klassifikationsschwelle etabliert: Jede Rasterzelle mit einer Wahrscheinlichkeit von über 50\,\% ($>$ 0.5) wurde als hochanfällige Zone klassifiziert.
 Die Flächenveränderungen dieser Zonen zwischen der historischen Baseline und den Zukunftsszenarien wurden quantifiziert.
-Mittels Spatial Joins wurden die Wahrscheinlichkeiten auf die Gemeindegrenzen übertragen, um gefährdete Kommunen zu identifizieren. 
+Mittels Spatial Joins wurden die Wahrscheinlichkeiten auf die Gemeindegrenzen übertragen, um gefährdete Kommunen zu identifizieren.
 Verschiebungen in den Wahrscheinlichkeitsverteilungen über die Szenarien hinweg wurden durch Violin Plots visualisiert.
 
 \subsection{Ergebnisse}
 
 \subsubsection{Modellperformanz und Klassifikationsgüte}
-Die Auswertung der Konfusionsmatrix zeigt, dass von den 38 dokumentierten Erdrutschen im Testdatensatz 29 Ereignisse korrekt als hochanfällig klassifiziert wurden (Wahr-Positiv). 
-Demgegenüber stehen 9 übersehene Ereignisse (Falsch-Negativ) sowie 24 Fehlalarme (Falsch-Positiv). 
+Die Auswertung der Konfusionsmatrix zeigt, dass von den 38 dokumentierten Erdrutschen im Testdatensatz 29 Ereignisse korrekt als hochanfällig klassifiziert wurden (Wahr-Positiv).
+Demgegenüber stehen 9 übersehene Ereignisse (Falsch-Negativ) sowie 24 Fehlalarme (Falsch-Positiv).
 72 der 96 sicheren Rasterzellen wurden korrekt als sicher eingestuft (Wahr-Negativ). \\
 
-Daraus ergeben sich für die Zielklasse (Erdrutschereignisse) ein Recall von 76\% sowie eine Precision von 55\%. Der daraus resultierende F1-Score liegt bei 64\%. 
+Daraus ergeben sich für die Zielklasse (Erdrutschereignisse) ein Recall von 76\% sowie eine Precision von 55\%. Der daraus resultierende F1-Score liegt bei 64\%.
 Die makro-gemittelte Gesamtgenauigkeit (Macro-Average F1-Score) über beide Klassen hinweg beträgt 73\%.
 
 \subsubsection{Variablenwichtigkeit (Feature Importance)}
-Die algorithmische Gewichtung der Prädiktoren quantifiziert den relativen Einfluss der Eingangsdaten auf die Modellentscheidungen. Die Auswertung offenbart, dass das Modell signifikant von der Topographie getrieben wird, wobei die absolute Höhe (Elevation) mit einem Einfluss von 34,0\% den mit Abstand wichtigsten Prädiktor im Entscheidungsbaum darstellt. 
-Die Jahresdurchschnittstemperatur (BIO01) und der Jahresniederschlag (BIO12) folgen mit 10,6\% bzw.\ 10,1\%, gefolgt von der Hangneigung (Slope) mit 9,6\%. 
-Die Parameter zu Temperaturextremen (BIO05: 8,5\%; BIO06: 7,4\%) sowie Niederschlagsextremen und -saisonalität (BIO15: 7,8\%; BIO13: 7,0\%) weisen eine mittlere Wichtigkeit auf. 
+Die algorithmische Gewichtung der Prädiktoren quantifiziert den relativen Einfluss der Eingangsdaten auf die Modellentscheidungen. Die Auswertung offenbart, dass das Modell signifikant von der Topographie getrieben wird, wobei die absolute Höhe (Elevation) mit einem Einfluss von 34,0\% den mit Abstand wichtigsten Prädiktor im Entscheidungsbaum darstellt.
+Die Jahresdurchschnittstemperatur (BIO01) und der Jahresniederschlag (BIO12) folgen mit 10,6\% bzw.\ 10,1\%, gefolgt von der Hangneigung (Slope) mit 9,6\%.
+Die Parameter zu Temperaturextremen (BIO05: 8,5\%; BIO06: 7,4\%) sowie Niederschlagsextremen und -saisonalität (BIO15: 7,8\%; BIO13: 7,0\%) weisen eine mittlere Wichtigkeit auf.
 Die Hangausrichtung (Aspect) besitzt mit 5,0\% den geringsten informationellen Mehrwert für die Klassentrennung im Modell.
 
 \subsubsection{Historische Erdrutschanfälligkeit (2015--2024)}
-Die Übertragung des trainierten Modells auf das kontinuierliche Raster des Untersuchungsgebietes generierte eine historische Anfälligkeitskarte für das Untersuchungsgebiet. Die räumliche Aggregation zeigt, dass unter den klimatischen Bedingungen der Baseline (2015--2024) 11,0\% der gesamten Gebietsfläche als hochanfällig (Wahrscheinlichkeit $>$ 0.5) einzustufen sind. 
+Die Übertragung des trainierten Modells auf das kontinuierliche Raster des Untersuchungsgebietes generierte eine historische Anfälligkeitskarte für das Untersuchungsgebiet. Die räumliche Aggregation zeigt, dass unter den klimatischen Bedingungen der Baseline (2015--2024) 11,0\% der gesamten Gebietsfläche als hochanfällig (Wahrscheinlichkeit $>$ 0.5) einzustufen sind.
 Eine visuelle Überprüfung, bei der Erdrutschereignisse über das berechnete Raster projiziert wurden, verifiziert diese räumliche Verteilung, da die dokumentierten Ereignisse konsistent innerhalb der Bereiche mit höherer Erdrutschwahrscheinlichkeit verortet sind.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{img/Bone.png}
+    \includegraphics[width=0.8\textwidth]{img/Bone.png}
     \caption{Räumliche Erdrutschanfälligkeit 2015--2024.}
     \vspace{0.2cm}
     \small\textit{Anmerkung.} Erdrutschwahrscheinlichkeiten für 2015--2024. Schwarze Kreuze markieren die tatsächlich verifizierten Erdrutschereignisse im Zeitraum 2015--2024. Basisdaten: \autocite{provinz_bozen_2026,provinz_bozen_2025a} sowie topographische und klimatische Referenzdaten von WorldClim 2.1.
 \end{figure}
 
 \subsubsection{Zukunftsprojektion und Change Detection (2081--2100)}
-Die Anwendung des trainierten Algorithmus auf die downskalierten CMIP6-Klimaszenarien quantifiziert eine signifikante Zunahme der Erdrutschanfälligkeit bis zum Ende des 21. Jahrhunderts. 
+Die Anwendung des trainierten Algorithmus auf die downskalierten CMIP6-Klimaszenarien quantifiziert eine signifikante Zunahme der Erdrutschanfälligkeit bis zum Ende des 21. Jahrhunderts.
 Die Analyse der Flächenveränderungen zeigt, dass die Ausdehnung der hochanfälligen Zonen stark von der globalen Emissionsentwicklung abhängt:
 \begin{itemize}
     \item Im starken Mitigationsszenario (SSP1-2.6) verbleibt der Anteil der gefährdeten Fläche mit 11,1\,\% im Vergleich zur historischen Baseline (11,0\,\%) nahezu auf konstantem Niveau.
@@ -125,27 +125,27 @@ Die Analyse der Flächenveränderungen zeigt, dass die Ausdehnung der hochanfäl
     \item Im Worst-Case-Szenario (SSP5-8.5) steigt die Anfälligkeit weiter: 18,4\,\% des Untersuchungsgebietes weisen hier eine Erdrutschwahrscheinlichkeit von über 50\,\% auf.
 \end{itemize}
 
-Diese Flächenausweitung zeigt sich ebenfalls in den Wahrscheinlichkeitsverteilungen. 
+Diese Flächenausweitung zeigt sich ebenfalls in den Wahrscheinlichkeitsverteilungen.
 Die Dichteverteilungen weisen für die zukunftspessimistischen Szenarien eine strukturelle Verschiebung der Raster-Wahrscheinlichkeiten in höhere Wertebereiche sowie eine Zunahme der statistischen Streuung auf.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{img/Btwo.png}
+    \includegraphics[width=0.8\textwidth]{img/Btwo.png}
     \caption{Wahrscheinlichkeitsdichte der Erdrutschanfälligkeit im historischen Vergleich und unter zukünftigen Klimaszenarien (2081--2100).}
     \vspace{0.2cm}
     \small\textit{Anmerkung.} Das Diagramm visualisiert die Verteilung der modellierten Erdrutschwahrscheinlichkeiten im Untersuchungsgebiet. Die Y-Achse zeigt die Wahrscheinlichkeit von 0 (sicher) bis 1 (hochanfällig), während die X-Achse die untersuchten Klimaszenarien abbildet. Die Breite der Kurven gibt an, wie groß der Flächenanteil mit der jeweiligen Wahrscheinlichkeit ist. Die Grafik illustriert, dass sich die Dichteverteilung bei den zukunftspessimistischen Klimaszenarien (SSP3-7.0 und SSP5-8.5) im Vergleich zur historischen Baseline nach oben in höhere Risikobereiche verschiebt. Basisdaten für die Zukunftsprojektionen: WorldClim 2.1 / CMIP6.
 \end{figure}
 
 \subsubsection{Räumliche Hotspots auf Gemeinde-Ebene}
-Der Spatial Join der modellierten Wahrscheinlichkeitsraster mit den Verwaltungsgrenzen (Municipalities) ermöglichte die Identifikation administrativer Hotspots. 
+Der Spatial Join der modellierten Wahrscheinlichkeitsraster mit den Verwaltungsgrenzen (Municipalities) ermöglichte die Identifikation administrativer Hotspots.
 In der historischen Baseline weisen insbesondere die Gemeinden Kuens (83,3\,\%), Karneid (80,2\,\%) und Leifers (70,7\,\%) den höchsten prozentualen Flächenanteil an hochanfälligen Zonen auf. \\
 
-Unter den projizierten Klimabedingungen des SSP3-7.0 verändert sich die Gefährdungslage räumlich. 
+Unter den projizierten Klimabedingungen des SSP3-7.0 verändert sich die Gefährdungslage räumlich.
 Den stärksten relativen Anstieg der Gefahrenzonen im Vergleich zur heutigen Situation verzeichnet die Kommune St. Ulrich mit einer Zunahme um 26,9 Prozentpunkte (von 6,6\,\% auf 33,5\,\%). Ebenfalls signifikante Anstiege weisen die Gemeinden Feldthurns (+21,3 Prozentpunkte auf 63,3\,\%) und Niederdorf (+15,3 Prozentpunkte auf 42,7\,\%) auf.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{img/Bthree.png}
+    \includegraphics[width=0.8\textwidth]{img/Bthree.png}
     \caption{Anteil der hochanfälligen Erdrutschzonen auf Gemeindeebene im Klimaszenario SSP3-7.0 (2081--2100).}
     \vspace{0.2cm}
     \small\textit{Anmerkung.} Die Karte visualisiert den relativen Flächenanteil pro Gemeinde, der unter dem projizierten Klimaszenario SSP3-7.0 eine Erdrutschwahrscheinlichkeit von über 50\,\% aufweist. Basisdaten: Autonome Provinz Bozen -- Südtirol (2025b) sowie Klimaprojektionen von WorldClim 2.1 / CMIP6.

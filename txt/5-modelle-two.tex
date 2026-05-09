@@ -5,10 +5,24 @@
 
 \begin{document}
 
-\section{Modell B: Tagesaktuelle Risikoberechnung}
+\section{Modell B: Kurzzeit-Modell}
 \vspace{-0.5cm}
 \noindent\textit{\small Verfasst von Kilian}
 \vspace{0.5cm}
+
+
+\subsection{Vorbemerkung: Methodische Korrektur nach der Abschlusspräsentation (14.01.2026, Schneefernerhaus)}
+Nach der Präsentation wurde ein Fehler in der Trainingsdatenzuweisung identifiziert.
+Einzelne Referenzpunkte waren fälschlich als positive Ereignisse gelabelt, ohne dokumentierte Erdrutsche zu repräsentieren.
+Da überwachte Lernverfahren konsistente Ground-Truth Daten erfordern, ist eine solche Fehlklassifikation methodisch unzulässig und kann Entscheidungsgrenzen verzerren \autocite{breimanRandomForests2001}.
+Die Validierung der präsentierten Version basierte ausschließlich auf korrekten Testlabels.
+Der Fehler betraf die Zusammensetzung des Trainingsdatensatzes.
+Nach erneuter Prüfung des Ereigniskatasters wurden alle Trainingslabels aus verifizierten Ereignissen abgeleitet.
+Das Modell wurde neu trainiert.
+Die erneute Modellierung zeigte vergleichbare Leistungskennzahlen und bestätigt die strukturelle Stabilität des Ansatzes.
+Gleichwohl ist ein Training mit fehlerhaften Positivlabels wissenschaftlich nicht akzeptabel.
+Die transparente Korrektur ist daher zentral für die methodische Validität des finalen Modells.
+Im Zuge der Überarbeitung erfolgte zudem eine Modelloptimierung mit angepassten Parametern, überprüfter Klassenbalance und datenbasierter Schwellenwertkalibrierung.
 
 \subsection{Daten}
 
@@ -84,12 +98,12 @@ Entsprechend wurden Sentinel-2-Indizes aus dem finalen Variablen-Set vollständi
 
 Die räumliche Modellierung der Risikoberechnung erfolgt auf einem einheitlichen Referenzgitter mit einer Auflösung von $500 \times 500$\,m im Koordinatensystem ETRS89 / UTM Zone 32N (EPSG:25832).
 Dieses Referenzgitter bildet die verbindliche räumliche Bezugsbasis aller Modellvariablen. Morphometrische und hydrologische Parameter werden zunächst im nativen Format der jeweiligen Reliefdaten berechnet. Anschließend erfolgt die Aggregation sämtlicher Parameter auf das 500-m-Referenzgitter durch flächenbasierte Mittelwertbildung. Jede 500-m Zelle enthält somit sowohl einen räumlich statischen topographischen Kennwert als auch die zugehörigen dynamischen meteorologischen und bildet die konsistente räumliche und zeitliche Integration des Modells.
-\subsection{Hangneigung, Profil- und Plankrümmung}
+\subsubsection{Hangneigung, Profil- und Plankrümmung}
 
 Während die Hangneigung als prägender Auslöser bereits in Modell A
 erörtert wurde, sind für dieses Modell Profil- und Plankrümmung zusätzlich essenziell.
 Krümmungsformen bestimmen, wo Wasser beschleunigt, gebremst, lateral gebündelt oder verteilt wird. Gefahrenzonen für Erdrutsche können aus diesen räumlichen Eigenschaften resultieren \autocite{ohlmacherPlanCurvatureLandslide2007}.
-Die Plan- und Profilkrümmung werden nach \textcite{zevenbergenProfileCurvature1987} über eine lokale quadratische Oberflächenapproximation in einem $3 \times 3$-Rasterfenster berechnet.
+Die Plan- und Profilkrümmung werden nach \textcite{zevenbergenQuantitativeAnalysisLand1987} über eine lokale quadratische Oberflächenapproximation in einem $3 \times 3$-Rasterfenster berechnet.
 Grundlage sind die ersten Ableitungen
 
 
@@ -139,29 +153,26 @@ Die Profilkrümmung charakterisiert die Krümmung der Oberfläche entlang der Fa
     \mathrm{ProC} < 0
 \]
 
-kennzeichnet eine konkave Form mit tendenzieller Abflussbremsung und Akkumulation, während
-
+kennzeichnet eine konvexe (upwardly convex) Form mit tendenzieller Abflussverzögerung, während
 \[
     \mathrm{ProC} > 0
 \]
 
-eine konvexe Form mit Abflussbeschleunigung und erhöhter erosiver Wirkung beschreibt.
+eine konkave (upwardly concave) Form mit Abflussbeschleunigung beschreibt.
 
 Die Plankrümmung  beschreibt die Krümmung quer zur Falllinie und quantifiziert laterale Konvergenz bzw. Divergenz.
 
 \[
     \mathrm{PlnC} < 0
 \]
-
-steht für konvergente Formen (Rinnen, Hohlformen) mit lateraler Wasserzusammenführung,
+steht für lateral konkave, konvergente Formen (Rinnen) mit lateraler Wasserzusammenführung,
 
 \[
     \mathrm{PlnC} > 0
 \]
-für divergente Formen (Rücken, Kämme) mit Wasserverteilung.
+für lateral konvexe, divergente Formen (Rücken) mit Wasserverteilung \autocite{CurvatureFunctionArcGIS} .
 
-
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{../img/profilcurvature.png}
     \caption{Visuelle Darstellung der Werteverhalten, Quelle: \autocite{zaragoziDataDrivenStudy2013}}
@@ -169,7 +180,7 @@ für divergente Formen (Rücken, Kämme) mit Wasserverteilung.
 \end{figure}
 
 
-\subsection{3.3 Exposition}
+\subsubsection{Exposition}
 
 
 
@@ -203,11 +214,11 @@ Das Minuszeichen vor p ergibt sich aus der Konvention, dass die Exposition in Ri
 
 
 
-Dadurch entstehen kontinuierliche Skalarwerte im Bereich (-1, +1), welche die Nord- bzw. Ost-Komponente der Falllinie beschreiben und keine Winkel-Diskontinuität mehr aufweisen.\autocite{fisherStatisticalAnalysisCircular1993}.
+Dadurch entstehen kontinuierliche Skalarwerte im Bereich (-1, +1), welche die Nord- bzw. Ost-Komponente der Falllinie beschreiben und keine Winkel-Diskontinuität mehr aufweisen \autocite{fisherStatisticalAnalysisCircular1993}.
 
 
 
-\subsection{Modifizierter Topographic Wetness Index (TWI)}
+\subsubsection{Modifizierter Topographic Wetness Index (TWI)}
 
 
 Zur Abbildung topographisch begünstigter Wasserakkumulation wird ein modifizierter Topographic Wetness Index (TWI) implementiert. Der klassische TWI definiert sich als
@@ -243,15 +254,15 @@ mit
 Der Wert 1,0 steht für neutrales, planes Gelände. Positive Plankrümmung erhöht, negative reduziert den catchment proxy. Aufgrund der geringen numerischen Größenordnung der Krümmung wird ein Faktor 100 zur Skalierung verwendet. Die Untergrenze von 0,1 stellt die Positivität des Logarithmusarguments sicher. Es handelt sich um einen vereinfachten Proxy zur Approximation lateraler Wasserakkumulation ohne explizite Flussrichtungsberechnung.
 
 
-\subsection{ERA5-Reanalyse und orographische Korrekturen}
+\subsubsection{ERA5-Reanalyse und orographische Korrekturen}
 
-ERA5 Singel Levels liegen nativ in einer räumlichen Auflösung von etwa 0,25° (28 km) vor \autocite{ERA5HourlyData}. Um die Skaleninkonsistenz zwischen einer homogenen ERA5 0,25° Zell und einer 500-m Raster Zelle physikalisch zu reduzieren, werden orographische Korrekturen implementiert. Dazu wird eine ERA5-Referenzorographie abgeleitet und die Höhendifferenz \(\Delta h\) zwischen 500-m Zelle und ERA5-Referenzhöhe gebildet.
+ERA5 Singel Levels liegen nativ in einer räumlichen Auflösung von etwa 0,25° (28 km) vor \autocite{ERA5HourlyData}. Um die Skaleninkonsistenz zwischen einer homogenen ERA5 0,25° Zelle und einer 500-m Raster Zelle physikalisch zu reduzieren, werden orographische Korrekturen implementiert. Dazu wird eine ERA5-Referenzorographie abgeleitet und die Höhendifferenz \(\Delta h\) zwischen 500-m Zelle und ERA5-Referenzhöhe gebildet.
 
 Die 2-m-Temperatur wird zunächst von Kelvin nach Celsius transformiert
 
 \[T_{^\circ\mathrm{C}} = T_{\mathrm{K}} - 273{,}15\]
 
-Anschließend erfolgt eine höhenabhängige Anpassung über den klimatologischen Standardgradienten
+Anschließend erfolgt eine höhenabhängige Anpassung über den klimatologischen Standardgradienten der Environmental Lapse Rate
 
 \[T_{\mathrm{corr}} = T_{^\circ\mathrm{C}} + (-0{,}0065)\, \Delta h
 \]
@@ -265,12 +276,9 @@ Zur höhenabhängigen Differenzierung wird daher ein vertikaler Skalierungsfakto
 
 
 
-
-
-ntsprechend einer orographischen Niederschlagszunahme von +8 \% pro 100 Höhenmeter. Dieser Wert liegt innerhalb des in der alpinen Niederschlagsklimatologie dokumentierten Bereichs von etwa 5–10 \% pro 100 m \autocite{freiPrecipitationClimatologyAlps1998, sevrukRegionalDependencyPrecipitationAltitude1997}
-
+entsprechend einer orographischen Niederschlagszunahme von +8 \% pro 100 Höhenmeter. Dieser Wert liegt innerhalb des in der alpinen Niederschlagsklimatologie dokumentierten Bereichs von etwa 5–10 \% pro 100 m \autocite{freiPrecipitationClimatologyAlps1998, sevrukRegionalDependencyPrecipitationAltitude1997}
+Zur numerischen Stabilisierung wird der Faktor auf
 \[
-    Zur numerischen Stabilisierung wird der Faktor auf
     \mathrm{rain\_factor} \in [0{,}5;\,2{,}0]
 \]
 
@@ -281,13 +289,13 @@ Die Skalierungsfaktoren fungieren als heuristische Annahme zur partiellen Kompen
 
 
 
-\subsection{Feature-Set}
+\subsubsection{Feature-Set}
 
 Das finale Feature-Set umfasst 27 Prädiktoren integriert klimatische Vorläuferfenster, Bodenfeuchte in Tiefenprofil und 7-Tage Trends sowie Geländeparameter. Interaktionsterme (z. B. Slope × Soil, TWI × Rainfall) verbinden topographische Eigenschaften mit hydrologischen Triggern, um kombinierte Risikomuster statt Einzelwerte abzubilden.
 
 
 
-\subsection{Random-Forest Training}
+\subsubsection{Random-Forest Training}
 Analog zu Modell A fußt die Vorhersagearchitektur auf einem in scikit-learn verankerten Random-Forest Klassifikator.
 
 Der Gesamtdatensatz wurde in 70 \% Trainingsdaten und 30 \% Testdaten aufgeteilt. Das Modelltraining erfolgte auf dem Trainingsset unter Anwendung einer fünffachen Kreuzvalidierung (5-Fold Cross-Validation, cv=5) sowie einer Randomized-Search Suche zur Hyperparameter-Optimierung, bei der 50 zufällige Parameterkombinationen (n\_iter=50) nach dem besten Ergebnis evaluiert wurden \autocite{pedregosaScikitlearnMachineLearning2011}.
@@ -326,7 +334,8 @@ Formal bedeutet dies, dass die Gewichtung einer Klasse \(k\) invers proportional
 
 
 Die native Modellausgabe ist eine Wahrscheinlichkeit \( p \) für das Auftreten
-einer Rutschung. Die binäre Klassifikation erfolgt über einen Schwellenwert \( \tau \).Die Verwendung eines festen Schwellenwerts von \( \tau = 0.50 \)
+einer Rutschung. Die binäre Klassifikation erfolgt über einen Schwellenwert \( \tau \).
+Die Verwendung eines festen Schwellenwerts von \( \tau = 0.50 \)
 führte im vorliegenden Datensatz zu einer systematischen
 Unterwarnung, da ein erheblicher Anteil tatsächlicher Ereignisse
 Wahrscheinlichkeiten unterhalb von 0.50 aufwies und somit nicht als
@@ -340,10 +349,10 @@ der \(F_\beta\)-Score maximiert:
 \]
 
 Der \(F_\beta\)-Score stellt ein gewichtetes harmonisches Mittel aus
-Precision und Recall dar. Über den Parameter \( \beta \) wird das relative
-Gewicht beider Größen gesteuert. Mit \( \beta = 0.6 \) wird Precision
+Precision und Recall dar.
+Mit \( \beta = 0.6 \) wird Precision
 stärker gewichtet als Recall, wodurch Fehlalarme stärker penalisiert
-werden als einzelne verpasste Ereignisse.
+werden als einzelne verpasste Ereignisse \autocite{pedregosaScikitlearnMachineLearning2011}.
 
 Die Optimierung über das Intervall \( \tau \in [0.05,\,0.95] \)
 ergab schließlich \( \tau = 0.30 \).
@@ -408,11 +417,8 @@ Von den 150 real sicheren Punkten wurden 138 korrekt als risikoarm klassifiziert
 
 \subsubsection{Feature Importance}
 
-\textbf{Bild Feutre importance}
-
-
-
-Die Feature-Importance-Analyse zeigt eine klare Dominanz hydrologischer und klimatischer Langzeitindikatoren. Besonders die tiefe Bodenfeuchte (Soil\_L4, 14,3 \%) sowie längerfristige Temperatur- und Niederschlagsmittel prägen die Klassifikation, was auf die zentrale Rolle der hydraulischen Vorbelastung hinweist. Die Hangneigung bleibt relevant, wirkt jedoch vor allem in Kombination mit Feuchteparametern. Statische Terrainvariablen wie Krümmung oder Exposition tragen nur marginal zur Trennschärfe bei. Insgesamt wird die Erdrutschdisposition primär durch dynamische hydrologische Zustände gesteuert, während die Morphologie eine modulierende Funktion einnimmt.
+Die Feature-Importance Analyse zeigt eine klare Dominanz hydrologischer und klimatischer Langzeitindikatoren.
+Besonders die tiefe Bodenfeuchte (Soil\_L4, 14,3 \%) sowie längerfristige Temperatur- und Niederschlagsmittel prägen die Klassifikation, was auf die zentrale Rolle der hydraulischen Vorbelastung hinweist. Die Hangneigung bleibt relevant, wirkt jedoch vor allem in Kombination mit Feuchteparametern. Statische Terrainvariablen wie Krümmung oder Exposition tragen nur marginal zur Trennschärfe bei. Insgesamt wird die Erdrutschdisposition primär durch dynamische hydrologische Zustände gesteuert, während die Morphologie eine modulierende Funktion einnimmt.
 
 
 \subsubsection{Modellvisualisierung und Validierung}
@@ -420,19 +426,20 @@ Die auf dem 500-m Referenzgitter berechneten Landslide Hazard Probability Maps s
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{img/landslideharadmodel2020.png}
+    \includegraphics[width=0.8\textwidth]{img/landslideharadmodel2020.png}
     \caption{Berechnete Risikokarte für Erdrutsche des 08.05.2021, Südtirol}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{img/landslideharzadmodel202012.png}
+    \includegraphics[width=0.8\textwidth]{img/landslideharzadmodel202012.png}
     \caption{Berechnete Risikokarte für Erdrutsche des 12.06.2020, Südtirol}
 \end{figure}
 
 
 Als Vergleich der Modellauswertung dienen die Tagesberechnungen für den 08.05.2021 und den 12.06.2020. Beide Termine zeigen eine deutlich unterschiedliche Ausprägung des prognostizierten Risikos.
-Der erste Betrachtungstag weist großflächig erhöhte Wahrscheinlichkeiten auf. Die an diesem Tag dokumentierten Erdrutschereignisse korrelieren räumlich mit den vom Modell ausgewiesenen Hochrisikobereichen. 94,4 \% dokumentierter Ereignisse wurden am 08.05.2021 wurden korrekt erfasst. Die erhöhte Disposition verteilt sich über mehrere zusammenhängende Zonen und spiegelt eine ausgeprägte hydrometeorologische Vorbelastung wider.
+Der erste Betrachtungstag weist großflächig erhöhte Wahrscheinlichkeiten auf. Die an diesem Tag dokumentierten Erdrutschereignisse korrelieren räumlich mit den vom Modell ausgewiesenen Hochrisikobereichen. 94,4 \% dokumentierter Ereignisse wurden am 08.05.2021 korrekt erfasst.
+Die erhöhte Disposition verteilt sich über mehrere zusammenhängende Zonen und spiegelt eine ausgeprägte hydrometeorologische Vorbelastung wieder.
 Am zweiten Beispieltag fällt das berechnete Risiko insgesamt deutlich geringer aus. Die Modellentscheidung stützt sich hier primär auf die statischen topographischen Parameter, was sich in einer stärkeren Konzentration der Wahrscheinlichkeiten entlang markanter Reliefstrukturen und Bergketten zeigt. Für diesen Tag ist ein dokumentiertes Ereignis verzeichnet, das innerhalb einer vom Modell als Risiko erhöht eingestuften Fläche liegt.
 Die Gegenüberstellung verdeutlicht den Einfluss meteorologischer Parameter auf die Risikoverteilung. Bei klimatischen Extremwerten streut das Risiko großflächiger, unter durchschnittlichen Bedingungen konzentriert es sich auf morphologisch prädisponierte Bereiche. Die Gefahrenkarten sind als regionales Dispositions- und Screeninginstrument zu verstehen und liefern keine parzellenscharfen Prognosen. Hohe Wahrscheinlichkeiten treten dort auf, wo morphologische Prädisposition und aktuelle hydrometeorologische Vorbelastung zusammenwirken.
 
